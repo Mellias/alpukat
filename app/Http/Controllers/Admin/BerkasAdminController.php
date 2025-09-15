@@ -219,25 +219,12 @@ class BerkasAdminController extends Controller
     {
         $berkas = BerkasAdmin::findOrFail($id);
 
-        // Path dari DB
         $path = ltrim($berkas->file_path ?? '', '/');
 
-        // Normalisasi: kalau path-nya dimulai "storage/" (data lama), buang awalan itu
-        $path = preg_replace('#^storage/#', '', $path);
-
-        // Normalisasi: kalau path-nya cuma nama file (tanpa folder), tambahkan folder default-nya
-        if ($path !== '' && strpos($path, '/') === false) {
-            $path = 'berkas_admin/'.$path;
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan.');
         }
 
-        // Cek di disk 'public'
-        if (!Storage::disk('public')->exists($path)) {
-            // Fallback terakhir (jaga-jaga): cek di full path fisik
-            $full = Storage::disk('public')->path($path);
-            if (!is_file($full)) {
-                abort(404, 'File tidak ditemukan.');
-            }
-            return response()->download($full, basename($path));
-        }
+        return response()->download($path, basename($berkas->file_path));
     }
 }
