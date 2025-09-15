@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BerkasAdminController extends Controller
 {
@@ -142,14 +143,14 @@ class BerkasAdminController extends Controller
             $namaBersih    = preg_replace('/\s+/', '_', strtolower($file->getClientOriginalName()));
             $namaFileFinal = time() . '_' . $namaBersih;
 
-            // Simpan ke storage/app/public/berkas_admin
-            $file->storeAs('berkas_admin', $namaFileFinal, 'public');
+            // Simpan file
+            $path = $file->storeAs('berkas_admin', $namaFileFinal, 'public');
 
             BerkasAdmin::create([
                 'verifikasi_id' => $request->verifikasi_id,
                 'user_id'       => $verifikasi->user_id,
                 'jenis_surat'   => $request->jenis_surat,
-                'file_path'     => $namaFileFinal, // simpan nama saja, path public di-join saat akses
+                'file_path'     => $path, 
             ]);
 
             // Notifikasi
@@ -161,7 +162,7 @@ class BerkasAdminController extends Controller
                 'user_id'       => $verifikasi->user_id,
                 'verifikasi_id' => $request->verifikasi_id,
                 'pesan'         => $pesanNotif,
-                'file_path'     => 'berkas_admin/' . $namaFileFinal, // untuk ditautkan di UI
+                'file_path'     => $path,
                 'dibaca'        => 0,
             ]);
 
@@ -217,12 +218,26 @@ class BerkasAdminController extends Controller
     public function download($id)
     {
         $berkas = BerkasAdmin::findOrFail($id);
-        $path = storage_path('app/public/berkas_admin/' . $berkas->file_path);
 
-        if (!file_exists($path)) {
-            abort(404, 'File tidak ditemukan.');
+        // Path dari DB
+        $path = ltrim($berkas->file_path ?? '', '/');
+
+        // Normalisasi: kalau path-nya dimulai "storage/" (data lama), buang awalan itu
+        $path = preg_replace('#^storage/#', '', $path);
+
+        // Normalisasi: kalau path-nya cuma nama file (tanpa folder), tambahkan folder default-nya
+        if ($path !== '' && strpos($path, '/') === false) {
+            $path = 'berkas_admin/'.$path;
         }
 
-        return response()->download($path, basename($berkas->file_path));
+        // Cek di disk 'public'
+        if (!Storage::disk('public')->exists($path)) {
+            // Fallback terakhir (jaga-jaga): cek di full path fisik
+            $full = Storage::disk('public')->path($path);
+            if (!is_file($full)) {
+                abort(404, 'File tidak ditemukan.');
+            }
+            return response()->download($full, basename($path));
+        }
     }
 }
