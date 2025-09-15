@@ -30,7 +30,9 @@ class BerkasAdminController extends Controller
         })->get();
 
         // Ambil data verifikasi dengan tanggal wawancara supaya dropdown verifikasi valid
-        $verifikasis = Verifikasi::whereNotNull('tanggal_wawancara')->with('user')->get();
+        $verifikasis = Verifikasi::whereNotNull('tanggal_wawancara')
+            ->where('status', 'diterima'    )
+            ->with('user')->get();
 
         return view('admin.berkas.create', compact('users', 'verifikasis'));
     }
@@ -55,12 +57,12 @@ class BerkasAdminController extends Controller
 
         // Cek status berkas yang sudah ada
         $existsBA = BerkasAdmin::where('verifikasi_id', $verifikasi->id)
-                    ->where('jenis_surat', 'berita_acara')
-                    ->exists();
+            ->where('jenis_surat', 'berita_acara')
+            ->exists();
 
         $existsSK = BerkasAdmin::where('verifikasi_id', $verifikasi->id)
-                    ->where('jenis_surat', 'sk_ukk')
-                    ->exists();
+            ->where('jenis_surat', 'sk_ukk')
+            ->exists();
 
         // Aturan urutan & duplikasi:
         if ($request->jenis_surat === 'berita_acara') {
@@ -75,15 +77,15 @@ class BerkasAdminController extends Controller
             $now   = now();
             if ($now->greaterThan($batas)) {
                 $labelDurasi = config('app.batas_unggah_wawancara_seconds')
-                    ? config('app.batas_unggah_wawancara_seconds').' detik (demo)'
-                    : config('app.batas_unggah_wawancara_days', 30).' hari kerja';
+                    ? config('app.batas_unggah_wawancara_seconds') . ' detik (demo)'
+                    : config('app.batas_unggah_wawancara_days', 30) . ' hari kerja';
 
                 $batasStr = $batas->locale('id')->timezone(config('app.timezone'))
-                                ->translatedFormat('d F Y H:i');
+                    ->translatedFormat('d F Y H:i');
 
                 return back()->withErrors([
                     'file' => "Batas waktu unggah Berita Acara sudah lewat ($labelDurasi). "
-                            . "Batas unggah: $batasStr WIB."
+                        . "Batas unggah: $batasStr WIB."
                 ])->withInput();
             }
         } else { // sk_ukk
@@ -120,8 +122,8 @@ class BerkasAdminController extends Controller
 
             if (now()->greaterThan($deadlineSk)) {
                 $labelSk = config('app.batas_unggah_sk_seconds')
-                    ? config('app.batas_unggah_sk_seconds').' detik (demo)'
-                    : (config('app.batas_unggah_sk_days', 30).' hari kerja');
+                    ? config('app.batas_unggah_sk_seconds') . ' detik (demo)'
+                    : (config('app.batas_unggah_sk_days', 30) . ' hari kerja');
 
                 $deadlineStr = $deadlineSk->locale('id')->timezone(config('app.timezone'))
                     ->translatedFormat('d F Y H:i');
@@ -170,8 +172,8 @@ class BerkasAdminController extends Controller
     }
 
     // Hitung batas unggah dari tanggal wawancara.
-     // - Jika config 'seconds' diisi (mode demo), pakai detik kalender.
-     // - Jika tidak, pakai 'hari kerja' (skip Sabtu/Minggu) sebanyak 'days'.
+    // - Jika config 'seconds' diisi (mode demo), pakai detik kalender.
+    // - Jika tidak, pakai 'hari kerja' (skip Sabtu/Minggu) sebanyak 'days'.
     private function uploadDeadline(Carbon $tanggalWawancara): Carbon
     {
         $seconds = config('app.batas_unggah_wawancara_seconds');
@@ -180,7 +182,7 @@ class BerkasAdminController extends Controller
         }
 
         $days = (int) config('app.batas_unggah_wawancara_days', 30);
-       
+
         return $this->addBusinessDays($tanggalWawancara, $days);
     }
 
