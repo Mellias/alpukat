@@ -220,22 +220,11 @@ class BerkasAdminController extends Controller
         $berkas = BerkasAdmin::findOrFail($id);
 
         $path = ltrim($berkas->file_path ?? '', '/');
-        $path = preg_replace('#^storage/#', '', $path);
 
-        if ($path !== '' && strpos($path, '/') === false) {
-            $path = 'berkas_admin/'.$path;
-        }
-
-        $disk = Storage::disk('public');
-
-        if (!$disk->exists($path)) {
+        if (!file_exists($path)) {
             abort(404, 'File tidak ditemukan.');
         }
 
-        // Ambil path absolut di filesystem kontainer
-        $absolutePath = $disk->path($path);
-
-        // Paksa unduh (download). Untuk preview pakai response()->file($absolutePath)
-        return response()->download($absolutePath, basename($path));
+        return response()->download($path, basename($berkas->file_path));
     }
 }
