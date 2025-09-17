@@ -31,7 +31,7 @@
                         {{ $berkas->created_at->format('d-m-Y H:i') }}
                     </td>
                     <td class="text-center">
-                        <a href="{{ asset('storage/berkas_admin/' . $berkas->file_path) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                        <a href="{{ asset('storage/'. $berkas->file_path) }}" target="_blank" class="btn btn-outline-primary btn-sm">
                             Lihat
                         </a>
                     </td>
