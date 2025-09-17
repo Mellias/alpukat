@@ -135,7 +135,7 @@
             </div>
             <div class="about-item phone">
               <span class="about-icon"><i class="fa fa-phone"></i></span>
-              <a href="https://wa.me/62881266686289">081266686289 (Firmansyah)</a>
+              <a href="https://wa.me/6281266686289">081266686289 (Firmansyah)</a>
             </div>
             <div class="about-item ig">
               <span class="about-icon"><i class="fa fa-instagram"></i></span>
