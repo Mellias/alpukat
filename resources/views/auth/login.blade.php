@@ -252,12 +252,12 @@
 
         {{-- Password + toggle eye --}}
         <div>
-          <!-- <div class="label-row">
+          <div class="label-row">
             <x-input-label for="password" :value="__('Password')" class="form-label" />
-            @if (Route::has('password.request'))
+            <!-- @if (Route::has('password.request'))
             <a class="link-small" href="{{ route('password.request') }}">Lupa password?</a>
-            @endif
-          </div> -->
+            @endif -->
+          </div>
 
           <div class="input-wrap">
             <x-text-input id="password" class="form-input"
