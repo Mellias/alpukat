@@ -6,17 +6,17 @@
     <p>Periksa dokumen yang telah diunggah oleh {{ $users->name }}</p>
 
     @if(isset($batasVerifikasi))
-        @if(now()->gt($batasVerifikasi))
-            <div class="alert alert-danger">
-                ⚠️ Batas verifikasi sudah lewat sejak {{ $batasVerifikasi->translatedFormat('d F Y H:i') }}
-            </div>
-        @else
-            <div class="alert alert-warning">
-                ⏳ Batas verifikasi sampai {{ $batasVerifikasi->translatedFormat('d F Y H:i') }}
-            </div>
-        @endif
+    @if(now()->gt($batasVerifikasi))
+    <div class="alert alert-danger">
+        ⚠️ Batas verifikasi sudah lewat sejak {{ $batasVerifikasi->translatedFormat('d F Y H:i') }}
+    </div>
+    @else
+    <div class="alert alert-warning">
+        ⏳ Batas verifikasi sampai {{ $batasVerifikasi->translatedFormat('d F Y H:i') }}
+    </div>
     @endif
-    
+    @endif
+
     <form method="POST" action="{{ route('admin.verif.verif_berkas', ['id' => $users->id]) }}">
         @csrf
 
@@ -30,24 +30,23 @@
         </div>
 
         @if ($verifikasi && $verifikasi->status === 'diterima' && $verifikasi->batas_wawancara)
-            <div class="alert alert-info">
-                <strong>Batas maksimal wawancara:</strong>
-                {{ \Carbon\Carbon::parse($verifikasi->batas_wawancara)->translatedFormat('d F Y') }}
-            </div>  
+        <div class="alert alert-info">
+            <strong>Batas maksimal wawancara:</strong>
+            {{ \Carbon\Carbon::parse($verifikasi->batas_wawancara)->translatedFormat('d F Y') }}
+        </div>
         @endif
 
         <div id="wawancara-fields" style="display: none;">
             <div class="mb-3">
                 <label for="tanggal_wawancara" class="form-label">Tanggal dan Jam Wawancara:</label>
-                <input 
-                type="datetime-local" 
-                name="tanggal_wawancara" 
-                class="form-control" 
-                value="{{ old('tanggal_wawancara', $verifikasi && $verifikasi->tanggal_wawancara 
+                <input
+                    type="datetime-local"
+                    name="tanggal_wawancara"
+                    class="form-control"
+                    value="{{ old('tanggal_wawancara', $verifikasi && $verifikasi->tanggal_wawancara 
                         ? $verifikasi->tanggal_wawancara->timezone(config('app.timezone'))->format('Y-m-d\TH:i') 
-                        : now()->timezone(config('app.timezone'))->format('Y-m-d\TH:i')) }}" 
-                max="{{ optional($batasMax)->format('Y-m-d\TH:i') }}"
-                >
+                        : '') }}"
+                    max="{{ optional($batasMax)->format('Y-m-d\TH:i') }}">
 
                 <small class="text-muted">
                     Batas maksimal wawancara: <strong>{{ optional($batasMax)->timezone(config('app.timezone'))->translatedFormat('d F Y H:i') }}</strong>
@@ -56,12 +55,11 @@
 
             <div class="mb-3">
                 <label for="lokasi_wawancara" class="form-label">Lokasi Wawancara:</label>
-                <input 
-                    type="text" 
-                    name="lokasi_wawancara" 
-                    class="form-control" 
-                    value="{{ old('lokasi_wawancara', $verifikasi?->lokasi_wawancara) }}"
-                >
+                <input
+                    type="text"
+                    name="lokasi_wawancara"
+                    class="form-control"
+                    value="{{ old('lokasi_wawancara', $verifikasi?->lokasi_wawancara) }}">
             </div>
         </div>
 
@@ -102,7 +100,7 @@
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("countdown").innerHTML = 
+        document.getElementById("countdown").innerHTML =
             `⏳ ${hours}j ${minutes}m ${seconds}d tersisa`;
     }, 1000);
 </script>
