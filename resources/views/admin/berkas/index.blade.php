@@ -14,8 +14,8 @@
                     <th>Nama Berkas</th>
                     <th>Nama Koperasi</th>
                     <th>Waktu Ditambahkan</th>
-                    <th>File</th>
-                    <th>Aksi</th>
+                    <!-- <th>File</th>
+                    <th>Aksi</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -30,14 +30,14 @@
                     <td>
                         {{ $berkas->created_at->format('d-m-Y H:i') }}
                     </td>
-                    <td class="text-center">
+                    <!-- <td class="text-center">
                         <a href="{{ asset('storage/berkas_admin/' . $berkas->file_path) }}" target="_blank" class="btn btn-outline-primary btn-sm">
                             Lihat
                         </a>
                     </td>
                     <td class="text-center">
                         <a href="{{ route('admin.berkas-admin.download', $berkas->id) }}" class="btn btn-success btn-sm me-1">Download</a>
-                    </td>
+                    </td> -->
                 </tr>
                 @empty
                 <tr>
