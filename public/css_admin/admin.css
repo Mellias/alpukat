@@ -51,9 +51,3 @@ table thead th {
 .footer-gradient {
     background: linear-gradient(90deg, #222F8D, #3449D0) !important;
 }
-
-/* Biar konten geser ke kanan, ngalah sama sidebar */
-.main-content {
-    margin-left: 225px; /* harus sama dengan width sidebar */
-    padding: 20px; /* biar ada jarak dari tepi */
-}
