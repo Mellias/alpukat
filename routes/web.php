@@ -67,7 +67,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'can:admin'])->group
         Route::get('/hasil', [VerifikasiController::class, 'hasilVerifikasi'])->name('hasil_verifikasi');
     });
 
-    // ---- Berkas Admin
+    // ---- SK UKK
     Route::resource('skukk', SkUkkController::class)->only(['index', 'create', 'store', 'show']);
     Route::get('skukk/{id}/download', [SkUkkController::class, 'download'])->name('skukk.download');
 
