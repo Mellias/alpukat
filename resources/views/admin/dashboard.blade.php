@@ -23,7 +23,7 @@
     <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
-          <div class="small text-muted">Total Berkas yang Telah Diverifikasi</div>
+          <div class="small text-muted">Total Verifikasi</div>
           <div class="display-6 fw-bold">{{ $countPengajuan }}</div>
         </div>
       </div>
@@ -50,7 +50,7 @@
     <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
-          <div class="small text-muted">Jumlah SK UKK yang Telah Diunggah</div>
+          <div class="small text-muted">SK UKK yang Telah Diunggah</div>
           <div class="display-6 fw-bold text-info">{{ $countSkUkk }}</div>
         </div>
       </div>
