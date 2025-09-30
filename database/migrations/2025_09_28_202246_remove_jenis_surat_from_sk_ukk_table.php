@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->enum('role', ['super_admin', 'admin_biasa'])->default('admin_biasa');
-            $table->rememberToken(); // Berfungsi sebagai fitur "remember me" pas login
+        Schema::table('sk_ukk', function (Blueprint $table) {
+            $table->dropColumn('jenis_surat');
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->dropColumn(['role', 'remember_token']);
+        Schema::table('sk_ukk', function (Blueprint $table) {
+            $table->enum('jenis_surat', ['berita_acara', 'sk_ukk']);
         });
     }
 };

@@ -19,11 +19,11 @@ $menus = [
                 ]
             ],
             [
-                'label' => 'Kirim Berkas',
+                'label' => 'Kirim SK UKK',
                 'icon' => 'fas fa-book-open',
                 'children' => [
-                    ['label' => 'Upload Berkas', 'route' => 'admin.berkas-admin.create'],
-                    ['label' => 'Lihat Berkas', 'route' => 'admin.berkas-admin.index'],
+                    ['label' => 'Upload SK UKK', 'route' => 'admin.skukk.create'],
+                    ['label' => 'Lihat SK UKK', 'route' => 'admin.skukk.index'],
                 ]
             ],
             [

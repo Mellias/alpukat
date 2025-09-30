@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('pengajuans');
+        Schema::dropIfExists('berkas_admins');
     }
 
     /**
@@ -19,10 +19,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::create('pengajuans', function (Blueprint $table) {
+            Schema::create('berkas_admins', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('verifikasi_id')->constrained('verifikasis')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->enum('jenis_surat', ['berita_acara', 'sk_ukk']);
+            $table->string('file_path');
             $table->timestamps();
-            // kalau ada struktur lain sebelumnya, bisa kamu isi juga
         });
     }
 };

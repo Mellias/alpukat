@@ -46,7 +46,7 @@ return [
     'batas_unggah_wawancara_days' => env('BATAS_UNGGAH_WAWANCARA_DAYS', 30),
     'batas_unggah_wawancara_seconds' => env('BATAS_UNGGAH_WAWANCARA_SECONDS', null),
 
-    'batas_unggah_sk_days' => env('BATAS_SK_DAYS', 30),
+    'batas_unggah_sk_days' => env('BATAS_SK_DAYS', 44),
     'batas_unggah_sk_seconds' => env('BATAS_SK_SECONDS', null),
     
 ];

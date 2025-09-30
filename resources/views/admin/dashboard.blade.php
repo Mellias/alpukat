@@ -12,16 +12,15 @@
 
   {{-- KPI Cards --}}
   @php
-    $countPengajuan   = $countPengajuan   ?? 0;
-    $countApproved    = $countApproved    ?? 0;
-    $countRejected    = $countRejected    ?? 0;
-    $countBeritaAcara = $countBeritaAcara ?? 0;
-    $countSkUkk       = $countSkUkk      ?? 0;
+  $countPengajuan = $countPengajuan ?? 0;
+  $countApproved = $countApproved ?? 0;
+  $countRejected = $countRejected ?? 0;
+  $countSkUkk = $countSkUkk ?? 0;
   @endphp
 
   <div class="row g-3 mb-4">
     {{-- Baris pertama --}}
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <div class="small text-muted">Total Berkas yang Telah Diverifikasi</div>
@@ -30,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <div class="small text-muted">Disetujui</div>
@@ -39,7 +38,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <div class="small text-muted">Ditolak</div>
@@ -47,20 +46,8 @@
         </div>
       </div>
     </div>
-  </div>
 
-  {{-- Baris kedua --}}
-  <div class="row g-3 mb-4">
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-body">
-          <div class="small text-muted">Jumlah Berita Acara yang Telah Diunggah</div>
-          <div class="display-6 fw-bold text-info">{{ $countBeritaAcara }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-3">
       <div class="card shadow-sm border-0 h-100">
         <div class="card-body">
           <div class="small text-muted">Jumlah SK UKK yang Telah Diunggah</div>
@@ -69,5 +56,4 @@
       </div>
     </div>
   </div>
-</div>
-@endsection
+  @endsection

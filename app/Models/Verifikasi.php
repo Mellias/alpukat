@@ -29,8 +29,8 @@ class Verifikasi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function berkasAdmin()
+    public function SkUkk()
     {
-        return $this->hasMany(BerkasAdmin::class);
+        return $this->hasMany(SkUkk::class);
     }
 }

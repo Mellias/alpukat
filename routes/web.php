@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminNotifController;
 use App\Http\Controllers\Admin\VerifikasiController;
-use App\Http\Controllers\Admin\BerkasAdminController;
+use App\Http\Controllers\Admin\SkUkkController;
 use App\Http\Controllers\Admin\SyaratController;
 use App\Http\Controllers\Admin\ProfilAdminController;
 
@@ -62,14 +62,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'can:admin'])->group
     // ---- Verifikasi (admin.verif.*)
     Route::prefix('verifikasi')->name('verif.')->group(function () {
         Route::get('/daftar-pengajuan', [DokumenController::class, 'daftarPengajuan'])->name('daftar_pengajuan');
-        Route::get('/berkas/{id}', [VerifikasiController::class, 'verifBerkas'])->name('verif_berkas');
-        Route::post('/berkas/{id}', [VerifikasiController::class, 'postVerifBerkas'])->name('post_verif_berkas');
+        Route::get('/skukk/{id}', [VerifikasiController::class, 'verifBerkas'])->name('verif_berkas');
+        Route::post('/skukk/{id}', [VerifikasiController::class, 'postVerifBerkas'])->name('post_verif_berkas');
         Route::get('/hasil', [VerifikasiController::class, 'hasilVerifikasi'])->name('hasil_verifikasi');
     });
 
     // ---- Berkas Admin
-    Route::resource('berkas-admin', BerkasAdminController::class)->only(['index', 'create', 'store', 'show']);
-    Route::get('berkas-admin/{id}/download', [BerkasAdminController::class, 'download'])->name('berkas-admin.download');
+    Route::resource('skukk', SkUkkController::class)->only(['index', 'create', 'store', 'show']);
+    Route::get('skukk/{id}/download', [SkUkkController::class, 'download'])->name('skukk.download');
 
     // ---- Notifikasi Admin
     Route::get('/notifikasi-admin', [AdminNotifController::class, 'notifikasiAdmin'])->name('notifications.index');

@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BerkasAdmin extends Model
+class SkUkk extends Model
 {
     use HasFactory;
+
+    // kasih tahu Laravel nama tabel yang benar
+    protected $table = 'sk_ukk';
 
     protected $fillable = [
         'verifikasi_id',
         'user_id',
-        'jenis_surat',
         'file_path',
     ];
 

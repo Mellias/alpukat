@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Verifikasi;
 use App\Models\Notifikasi;
 use App\Models\Dokumen;
-use App\Models\BerkasAdmin;
+use App\Models\SkUkk;
 
 // class User extends Authenticatable implements MustVerifyEmail
 class User extends Authenticatable
@@ -63,15 +63,15 @@ class User extends Authenticatable
         return $this->hasMany(Notifikasi::class);
     }
 
-    public function berkasAdmin()
+    public function SkUkk()
     {
-        return $this->hasMany(BerkasAdmin::class);
+        return $this->hasMany(SkUkk::class);
     }
 
     public function getAvatarUrlAttribute(): string
     {
         return $this->avatar_path
-            ? asset( 'storage/'. $this->avatar_path)
+            ? asset('storage/' . $this->avatar_path)
             : asset('resources/front-end/images/logo-koperasi.png');
     }
 }

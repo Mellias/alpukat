@@ -123,7 +123,7 @@ class VerifikasiController extends Controller
 
         // Siapkan pesan notifikasi berdasarkan status
         $pesan = $request->status === 'diterima'
-            ? "Selamat! Berkas Anda sudah lengkap. Silahkan ikut wawancara pada tanggal " . date('d M Y, H:i', strtotime($request->tanggal_wawancara)) . " di " . $request->lokasi_wawancara . "." . $request->feedback
+            ? "Selamat! Berkas Anda sudah lengkap. Silahkan ikut wawancara pada tanggal " . date('d M Y, H:i', strtotime($request->tanggal_wawancara)) . " di " . $request->lokasi_wawancara . ". " . $request->feedback
             : "Maaf, pengajuan Anda ditolak. " . $request->feedback;
 
         // Simpan notifikasi
