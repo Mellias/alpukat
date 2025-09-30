@@ -15,13 +15,6 @@ table thead th {
 .sidebar-gradient {
     background: linear-gradient(180deg, #222F8D, #3449D0) !important;
     color: white !important;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 225px;
-    height: 100vh;
-    z-index: 1000;
 }
 
 /* Heading sidebar */
@@ -57,4 +50,10 @@ table thead th {
 /* Footer background */
 .footer-gradient {
     background: linear-gradient(90deg, #222F8D, #3449D0) !important;
+}
+
+/* Biar konten geser ke kanan, ngalah sama sidebar */
+.main-content {
+    margin-left: 225px; /* harus sama dengan width sidebar */
+    padding: 20px; /* biar ada jarak dari tepi */
 }
