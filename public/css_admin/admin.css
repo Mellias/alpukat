@@ -13,6 +13,7 @@ table thead th {
 
 /* Sidebar gradient */
 .sidebar-gradient {
+    min-height: 100vh;
     background: linear-gradient(180deg, #222F8D, #3449D0) !important;
     color: white !important;
 }
